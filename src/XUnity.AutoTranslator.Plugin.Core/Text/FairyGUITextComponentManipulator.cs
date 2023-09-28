@@ -1,4 +1,5 @@
-﻿using System.Reflection;
+﻿using System.CodeDom;
+using System.Reflection;
 using XUnity.Common.Constants;
 using XUnity.Common.Utilities;
 
@@ -19,12 +20,19 @@ namespace XUnity.AutoTranslator.Plugin.Core.Text
 
       public string GetText( object ui )
       {
-         var html = (bool)_html.Get( ui );
-         if( html )
+         try
          {
-            return (string)_htmlText.Get( ui );
+            var html = (bool)_html.Get( ui );
+            if( html )
+            {
+               return (string)_htmlText.Get( ui );
+            }
+            else
+            {
+               return (string)_text.Get( ui );
+            }
          }
-         else
+         catch
          {
             return (string)_text.Get( ui );
          }
@@ -32,15 +40,24 @@ namespace XUnity.AutoTranslator.Plugin.Core.Text
 
       public void SetText( object ui, string text )
       {
-         var html = (bool)_html.Get( ui );
-         if( html )
+         try
          {
-            _htmlText.Set( ui, text );
+            var html = (bool)_html.Get( ui );
+            if( html )
+            {
+               _htmlText.Set( ui, text );
+            }
+            else
+            {
+               _text.Set( ui, text );
+            }
          }
-         else
+         catch
          {
-            _text.Set( ui, text );
+            _text.Set(ui, text);
          }
+
       }
+         
    }
 }

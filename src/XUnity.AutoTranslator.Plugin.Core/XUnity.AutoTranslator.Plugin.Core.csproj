@@ -32,6 +32,10 @@
 		<DefineConstants>IL2CPP</DefineConstants>
 	</PropertyGroup>
 
+	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net6.0|AnyCPU'">
+	  <DefineConstants>$(DefineConstants);IL2CPP</DefineConstants>
+	</PropertyGroup>
+
 	<ItemGroup Condition="'$(TargetFramework)'=='net35'">
 		<ProjectReference Include="..\UnityEngine\UnityEngine.csproj" />
 	</ItemGroup>
